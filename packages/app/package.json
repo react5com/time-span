@@ -1,5 +1,5 @@
 {
-  "name": "@react5/app",
+  "name": "app",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -13,7 +13,7 @@
   "dependencies": {
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
-    "@react5/lib": "*"
+    "lib": "*"
   },
   "devDependencies": {
     "@eslint/js": "^9.18.0",

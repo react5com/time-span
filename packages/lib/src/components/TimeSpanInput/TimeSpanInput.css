@@ -1,0 +1,62 @@
+.time-span-input {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  position: relative;
+  justify-items: center;
+}
+
+.time-span-input__input-container {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.time-span-input__input {
+  padding: 4px;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  width: 100%;
+}
+
+.time-span-input__input:focus {
+  outline: none;
+  border: none;
+}
+
+.time-span-input__toggle-button {
+  position: absolute;
+  right: 0;
+  background: transparent;
+  padding: 4px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.time-span-input__toggle-button:focus {
+  outline: none;
+}
+
+.time-span-input__error {
+  color: red;
+  font-size: 0.85rem;
+  margin-top: 0.25rem;
+}
+
+.time-span-input__picker {
+  position: absolute;
+  background: inherit;
+  z-index: 1;
+  top: 100%;
+  display: flex;
+  gap: 0.5rem;
+}
+
+.time-span-input__select {
+  padding: 4px;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}

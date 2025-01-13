@@ -1,7 +1,1 @@
-import "./index.css";
-
-export const LibComponent = () => {
-  return (
-    <div className="lib-component">LibComponent</div>
-  )
-}
+export * from './components'

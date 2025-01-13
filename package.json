@@ -1,14 +1,14 @@
 {
-  "name": "@react5/ui-library-template",
-  "version": "1.0.0",
+  "name": "@react5/time-span",
+  "version": "0.3.9",
   "description": "A template of a React UI library with a test app. It uses a monorepo structure.",
-  "homepage": "https://github.com/react5com/ui-library-template#readme",
+  "homepage": "https://github.com/react5com/time-span#readme",
   "bugs": {
-    "url": "https://github.com/react5com/ui-library-template/issues"
+    "url": "https://github.com/react5com/time-span/issues"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/react5com/ui-library-template.git"
+    "url": "git+https://github.com/react5com/time-span.git"
   },
   "workspaces": [
     "packages/lib",

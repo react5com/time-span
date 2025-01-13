@@ -1,11 +1,14 @@
 import './App.css'
-import { LibComponent } from 'lib'
+import { TimeSpanInput } from 'lib'
 import 'lib/dist/index.css'
 
 function App() {
+  const handleChange = (value: number) => {
+    console.log(value)
+  }
   return (
     <>
-      <LibComponent/>
+      <TimeSpanInput value={70} onChange={handleChange}/>
     </>
   )
 }

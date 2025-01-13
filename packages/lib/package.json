@@ -1,5 +1,5 @@
 {
-  "name": "@react5/lib",
+  "name": "lib",
   "version": "0.1.1",
   "description": "React library starter.",
   "main": "dist/index.js",
@@ -9,7 +9,7 @@
   "style": "dist/index.css",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/react5/ui-library-template.git"
+    "url": "git+https://github.com/react5/time-span.git"
   },
   "author": "React5",
   "license": "MIT",
