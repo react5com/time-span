@@ -68,7 +68,7 @@ export const TimeSpanInput: React.FC<TimeSpanInputProps> = ({
     if (!error) {
       const parsed = parseInput(value)!;
       setTime(toSeconds(parsed));
-      onChange?.(toSeconds(parsed));
+      //onChange?.(toSeconds(parsed));
     }
   };
 
@@ -79,6 +79,7 @@ export const TimeSpanInput: React.FC<TimeSpanInputProps> = ({
       setInputValue(
         `${String(parsed.minutes).padStart(2, "0")}:${String(parsed.seconds).padStart(2, "0")}`
       );
+      onChange?.(toSeconds(parsed));
     }
   };
 
