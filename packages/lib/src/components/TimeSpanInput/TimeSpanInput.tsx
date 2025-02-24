@@ -1,32 +1,55 @@
-import "./TimeSpanInput.css";
-import React, { useState, ChangeEvent, KeyboardEvent, useMemo, useRef, useEffect } from "react";
+import "./TimeSpanInput.scss";
+import { useState, ChangeEvent, KeyboardEvent, useMemo, useRef, useEffect } from "react";
 import clsx from "clsx";
-import { formatTime, toSeconds, splitTime } from "./utils/format-time";
-
-const b = "time-span-input";
+import { formatTime, toSeconds, splitTime } from "../../utils/format-time";
+import { bem } from "../../utils/bem";
 
 type TimeSpanInputProps = {
-  value?: number;
-  onChange?: (value: number) => void;
+  id?: string;
+  name?: string;
+  readOnly?: boolean;
+  value?: number | string;
+  onChangeValue?: (value: number) => void;
   className?: string;
   inputClassName?: string;
   step?: number;
 };
 
-export const TimeSpanInput: React.FC<TimeSpanInputProps> = ({
+const b = bem("time-span-input");
+export const TimeSpanInput = ({
+  id,
+  name,
+  readOnly = false,
   value = 0,
-  onChange,
+  onChangeValue,
   className,
   inputClassName,
   step = 2,
-}) => {
+}: TimeSpanInputProps) => {
+  if (!value) value = 0;
   const [time, setTime] = useState(value);
   const [inputValue, setInputValue] = useState(formatTime(value));
   const [pickerVisible, setPickerVisible] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const inputRef = useRef<HTMLInputElement>(null);  
+  const inputRef = useRef<HTMLInputElement | null>(null);
+  const pickerRef: any = useRef(null);
+  const dropdownRef: any = useRef(null);
 
   const timeS = useMemo(() => splitTime(time), [time]);
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (!dropdownRef.current?.contains(event.target)
+        && !pickerRef.current?.contains(event.target)) {
+        setPickerVisible(false);
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
+
   useEffect(() => {
     setTime(value);
     setInputValue(formatTime(value));
@@ -72,14 +95,16 @@ export const TimeSpanInput: React.FC<TimeSpanInputProps> = ({
     }
   };
 
-  const handleBlur = () => {
-    if (inputValue.trim() === "") return;
+  const handleBlur = (e: ChangeEvent<HTMLInputElement>) => {
+    if (inputValue.trim() === "") {
+      return;
+    }
     const parsed = parseInput(inputValue);
     if (parsed) {
       setInputValue(
         `${String(parsed.minutes).padStart(2, "0")}:${String(parsed.seconds).padStart(2, "0")}`
       );
-      onChange?.(toSeconds(parsed));
+      onChangeValue?.(toSeconds(parsed));
     }
   };
 
@@ -97,7 +122,7 @@ export const TimeSpanInput: React.FC<TimeSpanInputProps> = ({
       setInputValue(
         `${String(newValue.minutes).padStart(2, "0")}:${String(newValue.seconds).padStart(2, "0")}`
       );
-      onChange?.(toSeconds(newValue));
+      onChangeValue?.(toSeconds(newValue));
 
       e.preventDefault();
       setTimeout(() => {
@@ -112,36 +137,40 @@ export const TimeSpanInput: React.FC<TimeSpanInputProps> = ({
     setInputValue(
       `${String(newValue.minutes).padStart(2, "0")}:${String(newValue.seconds).padStart(2, "0")}`
     );
-    onChange?.(toSeconds(newValue));
+    onChangeValue?.(toSeconds(newValue));
   };
 
   return (
-    <div className={clsx(b, className)}>
-      <div className={"time-span-input__input-container"}>
+    <div className={clsx(b(), className)}>
+      <div className={b("input-container")}>
         <input
           ref={inputRef}
-          className={clsx("time-span-input__input", inputClassName)}
+          className={clsx(b("input"), inputClassName)}
           value={inputValue}
           onChange={handleTextInputChange}
           onBlur={handleBlur}
           onKeyDown={handleArrowKey}
           placeholder="mm:ss"
           aria-label="Time in mm:ss format"
+          id={id}
+          name={name}
+          readOnly={readOnly}
         />
-        <button
+        {!readOnly && <button
+          ref={pickerRef}
           type="button"
-          className={"time-span-input__toggle-button"}
-          onClick={() => setPickerVisible(!pickerVisible)}
+          className={b("toggle-button")}
+          onClick={() => setPickerVisible((prev) => !prev)}
           aria-label="Toggle picker"
         >
           &#128339;
-        </button>
+        </button>}
       </div>
-      {error && <div className={"time-span-input__error"}>{error}</div>}
+      {error && <div className={b("error")}>{error}</div>}
       {pickerVisible && (
-        <div className={"time-span-input__picker"}>
+        <div className={b("picker")} ref={dropdownRef}>
           <select
-            className={"time-span-input__select"}
+            className={b("select")}
             value={timeS.minutes}
             onChange={handlePickerChange("minutes")}
           >
@@ -152,7 +181,7 @@ export const TimeSpanInput: React.FC<TimeSpanInputProps> = ({
             ))}
           </select>
           <select
-            className={"time-span-input__select"}
+            className={b("select")}
             value={timeS.seconds}
             onChange={handlePickerChange("seconds")}
           >

@@ -1,11 +1,10 @@
 import pkg from "./package.json" with { type: "json" };
 
 import { babel } from "@rollup/plugin-babel";
-import terser from "@rollup/plugin-terser";
+//import terser from "@rollup/plugin-terser";
 import resolve from "@rollup/plugin-node-resolve";
 import commonjs from "@rollup/plugin-commonjs";
-import postcss from 'rollup-plugin-postcss';
-import copy from 'rollup-plugin-copy';
+import bundleSass from "@react5/bundle-sass";
 
 const production = !process.env.ROLLUP_WATCH;
 process.env.NODE_ENV = production ? 'production' : '';
@@ -50,13 +49,8 @@ export default [
         sourcemap: !production,
         skipPreflightCheck: true
       }),
-      postcss({extract: true}),
-      copy({
-        targets: [
-          { src: 'dist/index.css', dest: '../../dist' }
-        ]
-      }),
-      production && terser(),
+      bundleSass({scssOnly: false}),
+      //production && terser(),
     ],
     watch: {
       paths: pathsToWatch
