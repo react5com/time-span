@@ -15,7 +15,7 @@
     "react-dom": "^18.3.1",
     "lib": "*",
     "clsx": "^2.1.1",
-    "@react5/bem": "^0.4.2"
+    "@react5/bem": "^0.4.3"
   },
   "devDependencies": {
     "@eslint/js": "^9.18.0",

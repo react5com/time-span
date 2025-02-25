@@ -1,6 +1,6 @@
 {
   "name": "@react5/time-span",
-  "version": "0.3.22",
+  "version": "0.3.23",
   "description": "A template of a React UI library with a test app. It uses a monorepo structure.",
   "homepage": "https://github.com/react5com/time-span#readme",
   "bugs": {
