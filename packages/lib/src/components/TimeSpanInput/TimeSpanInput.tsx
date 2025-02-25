@@ -9,7 +9,7 @@ type TimeSpanInputProps = {
   name?: string;
   readOnly?: boolean;
   value?: number | string;
-  onChangeValue?: (value: number) => void;
+  onChange?: (value: number) => void;
   className?: string;
   inputClassName?: string;
   step?: number;
@@ -21,7 +21,7 @@ export const TimeSpanInput = ({
   name,
   readOnly = false,
   value = 0,
-  onChangeValue,
+  onChange,
   className,
   inputClassName,
   step = 2,
@@ -104,7 +104,7 @@ export const TimeSpanInput = ({
       setInputValue(
         `${String(parsed.minutes).padStart(2, "0")}:${String(parsed.seconds).padStart(2, "0")}`
       );
-      onChangeValue?.(toSeconds(parsed));
+      onChange?.(toSeconds(parsed));
     }
   };
 
@@ -122,7 +122,7 @@ export const TimeSpanInput = ({
       setInputValue(
         `${String(newValue.minutes).padStart(2, "0")}:${String(newValue.seconds).padStart(2, "0")}`
       );
-      onChangeValue?.(toSeconds(newValue));
+      onChange?.(toSeconds(newValue));
 
       e.preventDefault();
       setTimeout(() => {
@@ -137,7 +137,7 @@ export const TimeSpanInput = ({
     setInputValue(
       `${String(newValue.minutes).padStart(2, "0")}:${String(newValue.seconds).padStart(2, "0")}`
     );
-    onChangeValue?.(toSeconds(newValue));
+    onChange?.(toSeconds(newValue));
   };
 
   return (

@@ -1,7 +1,7 @@
 import pkg from "./package.json" with { type: "json" };
 
 import { babel } from "@rollup/plugin-babel";
-//import terser from "@rollup/plugin-terser";
+import terser from "@rollup/plugin-terser";
 import resolve from "@rollup/plugin-node-resolve";
 import commonjs from "@rollup/plugin-commonjs";
 import bundleSass from "@react5/bundle-sass";
@@ -12,7 +12,8 @@ const extensions = [".js", ".jsx", ".ts", ".tsx"];
 const external = [
   ...Object.keys(pkg.peerDependencies || {}),
   ...Object.keys(pkg.dependencies || {}),
-  "@babel/runtime"
+  "@babel/runtime",
+  "react/jsx-runtime"
 ];
 
 const pathsToWatch =[ 'src/**' ];
@@ -50,7 +51,7 @@ export default [
         skipPreflightCheck: true
       }),
       bundleSass({scssOnly: false}),
-      //production && terser(),
+      production && terser(),
     ],
     watch: {
       paths: pathsToWatch

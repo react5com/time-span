@@ -9,10 +9,10 @@ function App() {
   return (
     <>
       <div>
-        <TimeSpanInput value={70} onChangeValue={handleChange}/>
-        <TimeSpanInput onChangeValue={handleChange}/>
-        <TimeSpanInput value={NaN} onChangeValue={handleChange}/>
-        <TimeSpanInput value='' onChangeValue={handleChange}/>
+        <TimeSpanInput value={70} onChange={handleChange}/>
+        <TimeSpanInput onChange={handleChange}/>
+        <TimeSpanInput value={NaN} onChange={handleChange}/>
+        <TimeSpanInput value='' onChange={handleChange}/>
       </div>
       <p>Some text Some text Some text Some text Some text</p>
     </>
