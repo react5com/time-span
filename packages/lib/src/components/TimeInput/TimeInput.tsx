@@ -1,31 +1,31 @@
-import { ChangeEvent, KeyboardEvent, useEffect, useRef, useState } from 'react';
-import './DateInput.scss'
+import { ChangeEvent, useEffect, useRef, useState } from 'react';
+import './TimeInput.scss'
 import clsx from 'clsx';
-import { bem, formatDateForInput, parseDate } from "../../utils";
+import { bem, formatTimeForInput, parseFullTime } from "../../utils";
 
-interface DateInputProps {
+interface TimeInputProps {
   disabled?: boolean;
   className?: string;
   inputClassName?: string;
   id?: string;
   name?: string;
   readOnly?: boolean;
-  value?: Date;
-  onChange?: (v: Date) => void;
+  value?: number | string;
+  onChange?: (v: number) => void;
 }
-const b = bem("date-input");
-export const DateInput = ({className, inputClassName, id, name, readOnly, value, onChange}: DateInputProps) => {
-  const [inputValue, setInputValue] = useState(formatDateForInput(value));
+const b = bem("time-input");
+export const TimeInput = ({className, inputClassName, id, name, readOnly, value, onChange}: TimeInputProps) => {
+  const [inputValue, setInputValue] = useState(formatTimeForInput(value));
   const inputRef = useRef<HTMLInputElement | null>(null);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    setInputValue(formatDateForInput(value));
+    setInputValue(formatTimeForInput(value));
   }, [value]);
 
 
   const validateAndFormat = (s: string): string | null => {
-    const parsed = parseDate(s);
+    const parsed = parseFullTime(s);
     if (!parsed) return "Invalid date format.";
     return null;
   }
@@ -35,7 +35,7 @@ export const DateInput = ({className, inputClassName, id, name, readOnly, value,
     setError(error);
 
     if (!error) {
-      const parsed = parseDate(v);
+      const parsed = parseFullTime(v);
       if (parsed) {
         setInputValue(v);
         onChange?.(parsed);
@@ -44,16 +44,15 @@ export const DateInput = ({className, inputClassName, id, name, readOnly, value,
   };
 
   const handleToggleClick = () => {
-    const dateInput = inputRef.current;
-    if (dateInput) {
-      if (typeof dateInput.showPicker === "function") {
-        dateInput.showPicker();
+    const timeInput = inputRef.current;
+    if (timeInput) {
+      if (typeof timeInput.showPicker === "function") {
+        timeInput.showPicker();
       } else {
-        dateInput.focus();
+        timeInput.focus();
       }
     }
   }
-  
   return (
     <div className={clsx(b(), className)}>
       <div className={b("input-container")}>
@@ -65,7 +64,7 @@ export const DateInput = ({className, inputClassName, id, name, readOnly, value,
           aria-label="Date in YY/mm/dd format"
           id={id}
           name={name}
-          type='date'
+          type='time'
           readOnly={readOnly}
           ref={inputRef}
         />
@@ -75,10 +74,10 @@ export const DateInput = ({className, inputClassName, id, name, readOnly, value,
           onClick={handleToggleClick}
           aria-label="Toggle picker"
         >
-          &#x1f4c5;
+          &#128339;
         </button>}
       </div>
     </div>
   )
 }
-export default DateInput
+export default TimeInput

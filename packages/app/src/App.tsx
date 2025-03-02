@@ -1,5 +1,5 @@
 import './App.css'
-import { TimeSpanInput, DateInput } from 'lib'
+import { TimeSpanInput, DateInput, TimeInput } from 'lib'
 import 'lib/dist/index.css'
 import { useState } from 'react'
 
@@ -14,6 +14,7 @@ function App() {
   }
   return (
     <>
+      <h2>Time span</h2>
       <div>
         <TimeSpanInput value={70} onChange={handleChange}/>
         <TimeSpanInput onChange={handleChange}/>
@@ -22,8 +23,17 @@ function App() {
       </div>
       <p>Some text Some text Some text Some text Some text</p>
 
+      <h2>Date</h2>
       <div>
         <DateInput value={date1} onChange={handleDateChange}/>
+      </div>
+
+      <h2>Time</h2>
+      <div>
+        <TimeInput value={70} onChange={handleChange}/>
+        <TimeInput onChange={handleChange}/>
+        <TimeInput value={NaN} onChange={handleChange}/>
+        <TimeInput value='' onChange={handleChange}/>
       </div>
     </>
   )
