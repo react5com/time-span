@@ -18,6 +18,7 @@ export const DateInput = ({className, inputClassName, id, name, readOnly, value,
   const [inputValue, setInputValue] = useState(formatDateForInput(value));
   const inputRef = useRef<HTMLInputElement | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const [isPickerVisible, setPickerVisible] = useState(false);
 
   useEffect(() => {
     setInputValue(formatDateForInput(value));
@@ -45,13 +46,14 @@ export const DateInput = ({className, inputClassName, id, name, readOnly, value,
 
   const handleToggleClick = () => {
     const dateInput = inputRef.current;
-    if (dateInput) {
+    if (dateInput && !isPickerVisible) {
       if (typeof dateInput.showPicker === "function") {
         dateInput.showPicker();
       } else {
         dateInput.focus();
       }
     }
+    setPickerVisible(!isPickerVisible);
   }
   
   return (

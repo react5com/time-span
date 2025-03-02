@@ -18,6 +18,7 @@ export const TimeInput = ({className, inputClassName, id, name, readOnly, value,
   const [inputValue, setInputValue] = useState(formatTimeForInput(value));
   const inputRef = useRef<HTMLInputElement | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const [isPickerVisible, setPickerVisible] = useState(false);
 
   useEffect(() => {
     setInputValue(formatTimeForInput(value));
@@ -45,13 +46,14 @@ export const TimeInput = ({className, inputClassName, id, name, readOnly, value,
 
   const handleToggleClick = () => {
     const timeInput = inputRef.current;
-    if (timeInput) {
+    if (timeInput && !isPickerVisible) {
       if (typeof timeInput.showPicker === "function") {
         timeInput.showPicker();
       } else {
         timeInput.focus();
       }
     }
+    setPickerVisible(!isPickerVisible);
   }
   return (
     <div className={clsx(b(), className)}>
