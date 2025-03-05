@@ -5,12 +5,18 @@ import { useState } from 'react'
 
 function App() {
   const [date1, setDate1] = useState(new Date());
+  const [time, setTime] = useState(0); // seconds
   const handleChange = (value: number) => {
     console.log(value)
   }
   const handleDateChange = (value: Date) => {
     console.log(value);
     setDate1(value);
+  }
+
+  const handleChangeTime = (value: number) => {
+    console.log(value);
+    setTime(value);
   }
   return (
     <>
@@ -35,6 +41,7 @@ function App() {
         <TimeInput value={36000} onChange={handleChange}/>
         <TimeInput value={NaN} onChange={handleChange}/>
         <TimeInput value='' onChange={handleChange}/>
+        <TimeInput value={time} onChange={handleChangeTime}/>
       </div>
     </>
   )

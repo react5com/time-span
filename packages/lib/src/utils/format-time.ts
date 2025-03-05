@@ -59,8 +59,8 @@ export function parseFullTime(value: string): number | undefined {
     return undefined;
   }
   if (parts.length === 2) {
-    const [minutes, seconds] = numbers;
-    return minutes * 60 + seconds;
+    const [hours, minutes] = numbers;
+    return hours * 3600 + minutes * 60;
   } else { // parts.length === 3
     const [hours, minutes, seconds] = numbers;
     return hours * 3600 + minutes * 60 + seconds;
