@@ -1,7 +1,8 @@
 import { ChangeEvent, useEffect, useRef, useState } from 'react';
 import './TimeInput.scss'
 import clsx from 'clsx';
-import { bem, formatTimeForInput, parseFullTime } from "../../utils";
+import { formatTimeForInput, parseFullTime } from "../../utils";
+import { bem } from '../../utils/bem';
 
 interface TimeInputProps {
   disabled?: boolean;
@@ -23,7 +24,6 @@ export const TimeInput = ({className, inputClassName, id, name, readOnly, value,
   useEffect(() => {
     setInputValue(formatTimeForInput(value));
   }, [value]);
-
 
   const validateAndFormat = (s: string): string | null => {
     const parsed = parseFullTime(s);

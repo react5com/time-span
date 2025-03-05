@@ -1,7 +1,8 @@
-import { ChangeEvent, KeyboardEvent, useEffect, useRef, useState } from 'react';
+import { ChangeEvent, useEffect, useRef, useState } from 'react';
 import './DateInput.scss'
 import clsx from 'clsx';
-import { bem, formatDateForInput, parseDate } from "../../utils";
+import { formatDateForInput, parseDate } from "../../utils";
+import { bem } from '../../utils/bem';
 
 interface DateInputProps {
   disabled?: boolean;
