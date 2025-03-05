@@ -1,7 +1,7 @@
 import "./TimeSpanInput.scss";
 import { useState, ChangeEvent, KeyboardEvent, useMemo, useRef, useEffect } from "react";
 import clsx from "clsx";
-import { formatTime, toSeconds, splitTime } from "../../utils/format-time";
+import { formatTimeSpan, toSeconds, splitTime } from "../../utils/format-time";
 import { bem } from "../../utils/bem";
 
 type TimeSpanInputProps = {
@@ -28,7 +28,7 @@ export const TimeSpanInput = ({
 }: TimeSpanInputProps) => {
   if (!value) value = 0;
   const [time, setTime] = useState(value);
-  const [inputValue, setInputValue] = useState(formatTime(value));
+  const [inputValue, setInputValue] = useState(formatTimeSpan(value));
   const [pickerVisible, setPickerVisible] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const inputRef = useRef<HTMLInputElement | null>(null);
@@ -52,7 +52,7 @@ export const TimeSpanInput = ({
 
   useEffect(() => {
     setTime(value);
-    setInputValue(formatTime(value));
+    setInputValue(formatTimeSpan(value));
   }, [value]);
 
   // Parse implicit seconds if no colon

@@ -31,7 +31,8 @@ function App() {
       <h2>Time</h2>
       <div>
         <TimeInput value={70} onChange={handleChange}/>
-        <TimeInput onChange={handleChange}/>
+        <TimeInput value={3600} onChange={handleChange}/>
+        <TimeInput value={36000} onChange={handleChange}/>
         <TimeInput value={NaN} onChange={handleChange}/>
         <TimeInput value='' onChange={handleChange}/>
       </div>

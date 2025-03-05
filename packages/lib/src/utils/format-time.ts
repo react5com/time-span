@@ -1,4 +1,4 @@
-export function formatTime(seconds: number | string): string {
+export function formatTimeSpan(seconds: number | string): string {
   const s = typeof(seconds) === "number" ? seconds : parseInt(seconds);
   const minutes = Math.floor(s / 60);
   const remainingSeconds = s % 60;
@@ -7,6 +7,22 @@ export function formatTime(seconds: number | string): string {
   const formattedSeconds = String(remainingSeconds).padStart(2, '0');
 
   return `${formattedMinutes}:${formattedSeconds}`;
+}
+
+export function formatTime(seconds: number | string, skipSeconds: boolean = false): string {
+  const s = typeof(seconds) === "number" ? seconds : parseInt(seconds);
+  const hrs = Math.floor(s / 3600);
+  const mins = Math.floor((s % 3600) / 60);
+  const secs = s % 60;
+  const t = `${hrs.toString().padStart(2, '0')}:${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+  const d = new Date(`1970-01-01T${t}Z`);
+  const formattedTime = d.toLocaleTimeString(undefined, {
+    hour: 'numeric',
+    minute: 'numeric',
+    second: skipSeconds ? undefined : 'numeric',
+  });
+
+  return formattedTime;
 }
 
 export function toSeconds({ minutes, seconds }: { minutes: number; seconds: number }): number {
@@ -30,11 +46,7 @@ export function formatTimeForInput(seconds?: number | string): string {
   const minutes = Math.floor((totalSeconds % 3600) / 60);
   const secs = totalSeconds % 60;
   const pad = (num: number) => num < 10 ? `0${num}` : num.toString();
-  if (hours > 0) {
-    return `${pad(hours)}:${pad(minutes)}:${pad(secs)}`;
-  } else {
-    return `${pad(minutes)}:${pad(secs)}`;
-  }
+  return `${pad(hours)}:${pad(minutes)}:${pad(secs)}`;
 }
 
 export function parseFullTime(value: string): number | undefined {
