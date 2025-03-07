@@ -9,21 +9,27 @@ export function formatTimeSpan(seconds: number | string): string {
   return `${formattedMinutes}:${formattedSeconds}`;
 }
 
-export function formatTime(seconds: number | string, skipSeconds: boolean = false): string {
-  const s = typeof(seconds) === "number" ? seconds : parseInt(seconds);
-  const hrs = Math.floor(s / 3600);
-  const mins = Math.floor((s % 3600) / 60);
-  const secs = s % 60;
-  const t = `${hrs.toString().padStart(2, '0')}:${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
-  const d = new Date(`1970-01-01T${t}Z`);
+export function combineDateAndTime(d?: Date, seconds?: number): Date {
+  const datePart = d || new Date();
+  const result = new Date(datePart.getFullYear(), datePart.getMonth(), datePart.getDate());
+  result.setSeconds(seconds ?? 0);
+  return result;
+}
+
+export function getTimePortion(d: Date): number {
+  const midnight = new Date(d.getFullYear(), d.getMonth(), d.getDate());
+  return (d.getTime() - midnight.getTime()) / 1000;
+}
+
+export function formatTime(seconds?: number, skipSeconds: boolean = false): string {
+  const d = combineDateAndTime(undefined, seconds);
   const formattedTime = d.toLocaleTimeString(undefined, {
     hour: 'numeric',
     minute: 'numeric',
     second: skipSeconds ? undefined : 'numeric',
   });
-
   return formattedTime;
-}
+};
 
 export function toSeconds({ minutes, seconds }: { minutes: number; seconds: number }): number {
   return minutes * 60 + seconds;
