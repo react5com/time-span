@@ -101,10 +101,9 @@ export const TimeSpanInput = ({
     }
     const parsed = parseInput(inputValue);
     if (parsed) {
-      setInputValue(
-        `${String(parsed.minutes).padStart(2, "0")}:${String(parsed.seconds).padStart(2, "0")}`
-      );
-      onChange?.(toSeconds(parsed));
+      const v = toSeconds(parsed);
+      setInputValue(formatTimeSpan(v));
+      onChange?.(v);
     }
   };
 
@@ -114,15 +113,16 @@ export const TimeSpanInput = ({
 
     if (e.key === "ArrowUp" || e.key === "ArrowDown") {
       const s = e.key === "ArrowUp" ? 1 : -1;
+      const isSeconds = field === "seconds";
       const newValue = {
         ...timeS,
-        [field]: Math.max(0, timeS[field as "minutes" | "seconds"] + s * step),
+        [field]: timeS[field as "minutes" | "seconds"] + s * (isSeconds ? step : 1),
       };
-      setTime(toSeconds(newValue));
-      setInputValue(
-        `${String(newValue.minutes).padStart(2, "0")}:${String(newValue.seconds).padStart(2, "0")}`
-      );
-      onChange?.(toSeconds(newValue));
+      let v = toSeconds(newValue);
+      if (v < 0) v = 0;
+      setInputValue(formatTimeSpan(v));
+      setTime(v);
+      onChange?.(v);
 
       e.preventDefault();
       setTimeout(() => {
@@ -133,11 +133,10 @@ export const TimeSpanInput = ({
 
   const handlePickerChange = (field: "minutes" | "seconds") => (e: ChangeEvent<HTMLSelectElement>) => {
     const newValue = { ...timeS, [field]: parseInt(e.target.value, 10) };
-    setTime(toSeconds(newValue));
-    setInputValue(
-      `${String(newValue.minutes).padStart(2, "0")}:${String(newValue.seconds).padStart(2, "0")}`
-    );
-    onChange?.(toSeconds(newValue));
+    const v = toSeconds(newValue);
+    setInputValue(formatTimeSpan(v));
+    setTime(v);
+    onChange?.(v);
   };
 
   return (
