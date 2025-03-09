@@ -9,27 +9,17 @@ export function formatTimeSpan(seconds: number | string): string {
   return `${formattedMinutes}:${formattedSeconds}`;
 }
 
+export function getTimePortion(d: Date): number {
+  const midnight = new Date(d.getFullYear(), d.getMonth(), d.getDate());
+  return (d.getTime() - midnight.getTime()) / 1000;
+}
+
 export function combineDateAndTime(d?: Date, seconds?: number): Date {
   const datePart = d || new Date();
   const result = new Date(datePart.getFullYear(), datePart.getMonth(), datePart.getDate());
   result.setSeconds(seconds ?? 0);
   return result;
 }
-
-export function getTimePortion(d: Date): number {
-  const midnight = new Date(d.getFullYear(), d.getMonth(), d.getDate());
-  return (d.getTime() - midnight.getTime()) / 1000;
-}
-
-export function formatTime(seconds?: number, skipSeconds: boolean = false): string {
-  const d = combineDateAndTime(undefined, seconds);
-  const formattedTime = d.toLocaleTimeString(undefined, {
-    hour: 'numeric',
-    minute: 'numeric',
-    second: skipSeconds ? undefined : 'numeric',
-  });
-  return formattedTime;
-};
 
 export function toSeconds({ minutes, seconds }: { minutes: number; seconds: number }): number {
   return minutes * 60 + seconds;

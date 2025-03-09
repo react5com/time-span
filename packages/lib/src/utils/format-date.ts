@@ -6,10 +6,6 @@ export function formatDateForInput(d?: Date): string {
   return `${year}-${month}-${day}`;
 }
 
-export function formatDate(d?: Date): string {
-  return (d || new Date()).toLocaleDateString();
-}
-
 export function parseDate(value: string): Date | undefined {
   const d = Date.parse(value);
   if (!d) return undefined;
