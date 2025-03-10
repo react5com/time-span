@@ -11,7 +11,7 @@ export function formatTimeSpan(seconds: number | string): string {
 
 export function getTimePortion(d: Date): number {
   const midnight = new Date(d.getFullYear(), d.getMonth(), d.getDate());
-  return (d.getTime() - midnight.getTime()) / 1000;
+  return Math.round((d.getTime() - midnight.getTime()) / 1000);
 }
 
 export function combineDateAndTime(d?: Date, seconds?: number): Date {
@@ -34,7 +34,7 @@ export function splitTime(seconds: number | string): { minutes: number; seconds:
 }
 
 export function formatTimeForInput(seconds?: number | string): string {
-  const totalSeconds = typeof seconds === 'string' ? parseInt(seconds, 10) : seconds;
+  const totalSeconds = typeof seconds === 'string' ? parseInt(seconds, 10) : seconds ? Math.round(seconds) : 0;
   if (typeof totalSeconds === 'undefined' || isNaN(totalSeconds) || totalSeconds < 0) {
     return "00:00";
   }

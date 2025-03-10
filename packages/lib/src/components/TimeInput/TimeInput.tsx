@@ -34,7 +34,6 @@ export const TimeInput = ({className, inputClassName, id, name, readOnly, value,
     const v = e.target.value;
     const error = validateAndFormat(v);
     setError(error);
-
     if (!error) {
       const parsed = parseFullTime(v);
       if (parsed) {
@@ -62,8 +61,8 @@ export const TimeInput = ({className, inputClassName, id, name, readOnly, value,
           className={clsx(b("input"), inputClassName)}
           value={inputValue}
           onChange={handleTextInputChange}
-          placeholder="mm:ss"
-          aria-label="Date in YY/mm/dd format"
+          placeholder="hh:mm:ss"
+          aria-label="Time in hh:mm:ss format"
           id={id}
           name={name}
           type='time'
