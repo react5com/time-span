@@ -11,7 +11,7 @@ interface DateInputProps {
   id?: string;
   name?: string;
   readOnly?: boolean;
-  value?: Date;
+  value?: Date | string;
   onChange?: (v: Date) => void;
 }
 const b = bem("date-input");

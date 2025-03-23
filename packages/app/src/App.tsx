@@ -32,6 +32,7 @@ function App() {
       <h2>Date</h2>
       <div>
         <DateInput value={date1} onChange={handleDateChange}/>
+        <DateInput value={"2025-04-22T18:17:20.097Z"} onChange={handleDateChange}/>
       </div>
 
       <h2>Time</h2>
